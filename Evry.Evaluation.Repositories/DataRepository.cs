@@ -70,7 +70,8 @@ namespace Evry.Evaluation.Repositories
         public IEnumerable<Event> GetEventsByRegion(Guid regionId)
         {
             // EVAL
-            throw new NotImplementedException();
+            return _session.Set<Event>().Where(x => x.RegionId == regionId);
+            //throw new NotImplementedException();
         }
 
         /// <summary>
@@ -118,7 +119,8 @@ namespace Evry.Evaluation.Repositories
         public IEnumerable<Region> GetRegions()
         {
             // EVAL
-            throw new NotImplementedException();
+            return _session.Set<Region>();
+            //throw new NotImplementedException();
         }
 
         #region IDisposable Support

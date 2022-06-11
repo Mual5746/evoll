@@ -13,6 +13,7 @@ namespace Evry.Evaluation.Models
         public Guid PersonID { get; set; }
         public DateTime Time { get; set; }
         public double Amount { get; set; }
+        public Guid RegionId { get; set; }
 
         public Event()
         {

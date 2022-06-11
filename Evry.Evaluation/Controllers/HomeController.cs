@@ -10,7 +10,7 @@ namespace Evry.Evaluation.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index()
+        public ActionResult Index() 
         {
             return View();
         }
@@ -20,7 +20,14 @@ namespace Evry.Evaluation.Controllers
             var model = new List<EventViewModel>();
             var manager = new EventManager();
             model = manager.GetEventList();
+           // model.Add(  "dfgdgd");
             return View(model);
         }
+
+        public ActionResult Button()
+        {
+            return View();
+        }
+
     }
-}
+} 

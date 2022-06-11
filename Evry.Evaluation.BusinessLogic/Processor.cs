@@ -50,6 +50,7 @@ namespace Evry.Evaluation.BusinessLogic
             {
                 var personResult = new ProcessedPersonResult();
                 // EVAL: Fill personal details
+                //personResult.PersonID = 
 
                 var takeCurrent = new List<int>();
                 var takePrevious = new List<int>();

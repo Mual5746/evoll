@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace Evry.Evaluation.Models
 {
-    public class Person
-    {
+    public class Person    {
+       
+
         public Guid ID { get; set; }
         public Guid RegionID { get; set; }
         public string Firstname { get; set; }
