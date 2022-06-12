@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Evry.Evaluation.Repositories
 {
-    /// <summary>
+     /// <summary>
     /// Data access repository
     /// </summary>
     public class DataRepository : IDataRepository
@@ -161,5 +161,9 @@ namespace Evry.Evaluation.Repositories
             // GC.SuppressFinalize(this);
         }
         #endregion
+    }
+
+    internal class EventViewModel
+    {
     }
 }

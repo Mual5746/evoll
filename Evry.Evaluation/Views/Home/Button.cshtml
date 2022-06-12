@@ -4,7 +4,12 @@
     ViewBag.Title = "Evaluation - EVRY Public HR";
 }
 
-    <div class="jumbotron">
+<div class="jumbotron">
     <h1>EVRY Evaluation</h1>
-    <p class="lead">Please complete the evaluations in this project as well as you can. We'll discuss your solutions together.</p>
+    <p class="lead"> Click to go to List page.</p>
+
+
+    <button type="button"
+           value="Go Somewhere Else"
+           onclick="location.href=@Url.Action("Home", "List" )'"> List </button> 
 </div>

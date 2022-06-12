@@ -11,6 +11,8 @@ namespace Evry.Evaluation.BusinessLogic
 {
     public class Processor : IProcessor
     {
+        private List<int> takeCurrent;
+
         public IEnumerable<ProcessedPersonResult> ProcessEvents(IEnumerable<Event> events, PeriodClass periodClass, IEnumerable<EventType> eventTypes = null)
         {
             // EVAL Optional: Modify to apply event type multipliers.
@@ -30,6 +32,7 @@ namespace Evry.Evaluation.BusinessLogic
                 case PeriodClass.Week:
                     currentStart = DateTime.Now.AddDays(((int)DateTime.Now.DayOfWeek -1) * -1);
                     // EVAL: Get end of week
+                    currentEnd = DateTime.Now.AddDays(((int) DateTime.Now.DayOfWeek -1) * -2);
                     break;
                 case PeriodClass.Month:
                     currentStart = DateTime.Now.AddDays((DateTime.Now.Day - 1) * -1);
@@ -37,6 +40,8 @@ namespace Evry.Evaluation.BusinessLogic
                     break;
                 case PeriodClass.Quarter:
                     // EVAL
+                    currentStart = DateTime.Now.AddDays((DateTime.Now.Day - 2) / 3);
+                    currentEnd = new DateTime(DateTime.Now.Year, DateTime.Now.Month + 2, 1).AddDays(-1);
                     break;
                 case PeriodClass.Year:
                     currentStart = new DateTime(DateTime.Now.Year, 1, 1);
@@ -50,7 +55,7 @@ namespace Evry.Evaluation.BusinessLogic
             {
                 var personResult = new ProcessedPersonResult();
                 // EVAL: Fill personal details
-                //personResult.PersonID = 
+               // personResult.PersonID = 
 
                 var takeCurrent = new List<int>();
                 var takePrevious = new List<int>();

@@ -15,30 +15,52 @@ namespace Evry.Evaluation.Manager
             using (var repo = new DataRepository())
             {
                 // EVAL: Get data from repository and fill view models
-            
-                repo.GetRegions();
-                repo.GetPeople();//.Where(pep => pep.Firstname[1] != null);
-                repo.GetEvents();
-                repo.GetEventTypes();
 
+                var allRegions = repo.GetRegions();
+                var allPeople = repo.GetPeople();//.Where(pep => pep.Firstname[1] != null);
+                var allEvents = repo.GetEvents();
+                var allGetEventsType = repo.GetEventTypes();
 
-                result.Add(new EventViewModel()
+                foreach (Person person in allPeople)
                 {
-                    PersonName = "Max",
-                    Region =repo.region().Where(x =>x.Region[1] ),
-                    TypeName = "This is type namne",                    
-                    Amount = 22,
-                    Sum = 223
+                    var personRegion = allRegions.Where(region => region.ID == person.RegionID).FirstOrDefault();
+                    var personRegionname = personRegion == null ? "Region not found" : personRegion.Name;
+                    // om någon av evets id matcher med person id så plocka dem och gör den till list
+                    var allPersonEvents = allEvents.Where(eve => eve.PersonID == person.ID).ToList();
 
-                });
-                //result = repo.GetEvents().Where()
+                    if (allPersonEvents.Any())
+                    {
+                        double sum = allPersonEvents.Count(); //antal event
+                        foreach (var personevent in allPersonEvents)
+                        {
+                            //plocka perosnnes event
+                            double amount = personevent.Amount;
+                            DateTime time = personevent.Time;
+                            //plocka alla event som ha liknnande ID som personen om det inte finns returnera null
+                            var eventType = allGetEventsType.FirstOrDefault(eveType => eveType.ID == personevent.ID);
+                            Guid eventTypeID = eventType == null ? Guid.Empty : eventType.ID;
+                            // om type name finns inte returnera ´medelande annars plocka eventtype name
+                            String typeName = eventType == null ? "No event type name found" : eventType.Name;
 
-                /// https://www.youtube.com/watch?v=n2SWViVYzoc  C# Tutorial: Lists of Objects
-                /// 
+                            //nu fyller eventViewmodelen med data från Repository 
+                            result.Add(new EventViewModel
+                            {
+                                ID = person.ID,
+                                TypeID = eventTypeID,
+                                PersonID = person.ID,
+                                TypeName = typeName,
+                                PersonName = person.Firstname + " " + person.Lastname,
+                                Time = time,
+                                Amount = amount,
+                                Sum = sum,
+                                Region = personRegionname
 
-                // https://www.youtube.com/watch?v=ExBIIDsHU-4 hendi button list
+                            });
 
+                        }
 
+                    }
+                }
             }
             return result;
         }
